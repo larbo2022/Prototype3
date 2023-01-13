@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-  
+    private GameManager gameManager;
     private Rigidbody playerRb;
     private Animator animator;
     private AudioSource audioSource;
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
     }
@@ -64,11 +65,8 @@ public class PlayerController : MonoBehaviour
             explosionParticle.Play();
             dirtParticle.Stop();
             audioSource.PlayOneShot(crashSound, 1.0f);
+            gameManager.GameOver();
         }
     }
-    private void FixedUpdate()
-    {
-     // animator.  
-      
-    }
+    
 }
